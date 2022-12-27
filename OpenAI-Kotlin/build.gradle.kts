@@ -6,10 +6,11 @@ plugins {
     id("maven-publish")
 }
 
-val libraryVersion = "0.5"
+val artifactVersion = "1.0.0"
+val groupName = "com.github.asadullahilyas"
 
-group = "com.github.asadullahilyas"
-version = libraryVersion
+group = groupName
+version = artifactVersion
 
 dependencies {
 
@@ -37,9 +38,9 @@ afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("maven") {
-                groupId = "com.github.asadullahilyas"
+                groupId = groupName
                 artifactId = "OpenAI-Kotlin"
-                version = libraryVersion
+                version = artifactVersion
 
                 from(components["java"])
             }
