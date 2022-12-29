@@ -31,14 +31,14 @@ allprojects {
 ### Groovy
 ```` Groovy
 dependencies {
-        implementation 'com.github.asadullahilyas:OpenAI-Kotlin-Lang:1.0.0'
+    implementation 'com.github.asadullahilyas:OpenAI-Kotlin-Lang:1.0.0'
 }
 ````
 
 ### Kotlin
 ``` Kotlin
 dependencies {
-        implementation("com.github.asadullahilyas:OpenAI-Kotlin-Lang:1.0.0")
+    implementation("com.github.asadullahilyas:OpenAI-Kotlin-Lang:1.0.0")
 }
 ```
 
