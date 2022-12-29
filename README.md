@@ -58,5 +58,5 @@ fun main() {
 ```
 
 ## Contact Me
-If you have found any mistake or you have a suggestion for improvement, reach out to me on my
-[LinkedIn](https://www.linkedin.com/in/asadullahilyas/) page.
+If you have found any mistake or you can make an improvement, please create a pull request
+or reach out to me on my [LinkedIn](https://www.linkedin.com/in/asadullahilyas/) page.
