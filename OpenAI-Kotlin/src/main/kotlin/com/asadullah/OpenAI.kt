@@ -1,19 +1,15 @@
 package com.asadullah
 
 import com.asadullah.api.ApiImpl
-import com.asadullah.api.request.CreateCompletionRequest
-import com.asadullah.api.request.CreateEditRequest
-import com.asadullah.api.request.CreateEmbeddingsRequest
-import com.asadullah.api.request.UploadFileRequest
-import com.asadullah.api.request.CreateFineTuneRequest
+import com.asadullah.api.request.*
 import com.asadullah.api.request.image.*
 import com.asadullah.api.request.moderation.CreateModerationRequest
 import com.asadullah.api.response.*
 
-class OpenAI(private val secret: String) {
+class OpenAI(private val configuration: Configuration) {
 
     private val api: ApiImpl by lazy {
-        ApiImpl(secret)
+        ApiImpl(configuration)
     }
 
     /**

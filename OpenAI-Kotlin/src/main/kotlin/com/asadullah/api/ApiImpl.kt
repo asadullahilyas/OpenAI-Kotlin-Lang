@@ -1,5 +1,6 @@
 package com.asadullah.api
 
+import com.asadullah.Configuration
 import com.asadullah.api.request.*
 import com.asadullah.api.request.image.CreateImageRequest
 import com.asadullah.api.request.image.CreateImageVariationRequest
@@ -8,10 +9,10 @@ import com.asadullah.api.request.moderation.CreateModerationRequest
 import com.asadullah.api.response.*
 import com.asadullah.createApiInterface
 
-class ApiImpl(private val secret: String) {
+class ApiImpl(private val configuration: Configuration) {
 
     private val apiInterface: ApiInterface by lazy {
-        createApiInterface(secret)
+        createApiInterface(configuration)
     }
 
     suspend fun getModels(): GetModelsResponse {
@@ -35,11 +36,18 @@ class ApiImpl(private val secret: String) {
     }
 
     suspend fun editImage(request: EditImageRequest): ImageResponse {
-        return apiInterface.editImage(request.toRequestBodyMap())
+        return apiInterface.editImage(
+            imageFile = request.imageAsFormDataPart(),
+            maskFile = request.maskAsFormDataPart(),
+            request = request.toRequestBodyMap()
+        )
     }
 
     suspend fun createImageVariation(request: CreateImageVariationRequest): ImageResponse {
-        return apiInterface.createImageVariation(request)
+        return apiInterface.createImageVariation(
+            imageFile = request.imageAsFormDataPart(),
+            request = request.toRequestBodyMap()
+        )
     }
 
     suspend fun createEmbeddings(request: CreateEmbeddingsRequest): CreateEmbeddingsResponse {
@@ -51,7 +59,10 @@ class ApiImpl(private val secret: String) {
     }
 
     suspend fun uploadFile(request: UploadFileRequest): UploadFileResponse {
-        return apiInterface.uploadFile(request.toRequestBodyMap())
+        return apiInterface.uploadFile(
+            file = request.fileAsFormDataPart(),
+            request = request.toRequestBodyMap()
+        )
     }
 
     suspend fun deleteFile(fileId: String): DeleteFileResponse {

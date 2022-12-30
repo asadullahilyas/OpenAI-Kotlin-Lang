@@ -23,20 +23,25 @@ fun createMoshi(): Moshi {
         .build()
 }
 
-fun createOkHttpClient(secret: String): OkHttpClient {
+fun createOkHttpClient(configuration: Configuration): OkHttpClient {
     return OkHttpClient
         .Builder()
-        .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
-        .addInterceptor(createAuthInterceptor(secret))
-        .connectTimeout(15, TimeUnit.SECONDS)
-        .readTimeout(15, TimeUnit.SECONDS)
-        .writeTimeout(15, TimeUnit.SECONDS)
+        .addInterceptor(
+            HttpLoggingInterceptor().apply {
+                level = if (configuration.enableOkHttpLogging)
+                    HttpLoggingInterceptor.Level.BODY
+                else
+                    HttpLoggingInterceptor.Level.NONE
+            }
+        )
+        .addInterceptor(createAuthInterceptor(configuration.secretKey))
+        .connectTimeout(configuration.connectTimeoutInSeconds, TimeUnit.SECONDS)
+        .readTimeout(configuration.readTimeoutInSeconds, TimeUnit.SECONDS)
+        .writeTimeout(configuration.writeTimeoutInSeconds, TimeUnit.SECONDS)
         .build()
 }
 
-fun createAuthInterceptor(secret: String): Interceptor {
-
-    val secretKey = secret
+fun createAuthInterceptor(secretKey: String): Interceptor {
 
     return Interceptor {chain ->
         chain.request().newBuilder()
@@ -48,14 +53,14 @@ fun createAuthInterceptor(secret: String): Interceptor {
     }
 }
 
-fun createApiInterface(secret: String): ApiInterface {
+fun createApiInterface(configuration: Configuration): ApiInterface {
     return Retrofit
         .Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(
             MoshiConverterFactory.create(createMoshi())
         )
-        .client(createOkHttpClient(secret))
+        .client(createOkHttpClient(configuration))
         .build()
         .create(ApiInterface::class.java)
 }

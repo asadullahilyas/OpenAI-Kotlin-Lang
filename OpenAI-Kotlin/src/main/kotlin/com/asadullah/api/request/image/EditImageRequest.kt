@@ -3,6 +3,7 @@ package com.asadullah.api.request.image
 import com.asadullah.enums.ImageSize
 import com.asadullah.enums.ResponseFormat
 import com.squareup.moshi.*
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -60,13 +61,31 @@ data class EditImageRequest(
     @Json(name = "user")
     val userId: String? = null
 ) {
+
+    fun imageAsFormDataPart() = with(File(image)) {
+        MultipartBody.Part.createFormData(
+            name = "image",
+            filename = this.name,
+            body = this.asRequestBody()
+        )
+    }
+
+    fun maskAsFormDataPart() = mask?.let {
+        with(File(mask)) {
+            MultipartBody.Part.createFormData(
+                name = "mask",
+                filename = this.name,
+                body = this.asRequestBody()
+            )
+        }
+    }
+
     fun toRequestBodyMap(): Map<String, RequestBody> {
 
         val map = mutableMapOf<String, RequestBody>()
         map["prompt"] = prompt.toRequestBody()
-        map["image"] = File(image).asRequestBody()
-        if (mask != null) map["mask"] = File(mask).asRequestBody()
-        if (numberOfImagesToGenerate != null) map["n"] = numberOfImagesToGenerate.toString().toRequestBody()
+        if (numberOfImagesToGenerate != null) map["n"] =
+            numberOfImagesToGenerate.toString().toRequestBody()
         if (size != null) map["size"] = size.size.toRequestBody()
         if (responseFormat != null) map["response_format"] = responseFormat.format.toRequestBody()
         if (userId != null) map["user"] = userId.toRequestBody()

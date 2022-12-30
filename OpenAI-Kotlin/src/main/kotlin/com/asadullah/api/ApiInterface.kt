@@ -7,12 +7,14 @@ import com.asadullah.api.request.CreateFineTuneRequest
 import com.asadullah.api.request.image.*
 import com.asadullah.api.request.moderation.CreateModerationRequest
 import com.asadullah.api.response.*
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -34,12 +36,15 @@ interface ApiInterface {
     @POST("images/generations")
     suspend fun createImage(@Body request: CreateImageRequest): ImageResponse
 
+    @JvmSuppressWildcards
     @Multipart
     @POST("images/edits")
-    suspend fun editImage(@PartMap request: Map<String, RequestBody>): ImageResponse
+    suspend fun editImage(@Part imageFile: MultipartBody.Part, @Part maskFile: MultipartBody.Part?, @PartMap request: Map<String, RequestBody>): ImageResponse
 
+    @JvmSuppressWildcards
+    @Multipart
     @POST("images/variations")
-    suspend fun createImageVariation(@Body request: CreateImageVariationRequest): ImageResponse
+    suspend fun createImageVariation(@Part imageFile: MultipartBody.Part, @PartMap request: Map<String, RequestBody>): ImageResponse
 
     @POST("embeddings")
     suspend fun createEmbeddings(@Body request: CreateEmbeddingsRequest): CreateEmbeddingsResponse
@@ -47,9 +52,10 @@ interface ApiInterface {
     @GET("files")
     suspend fun getFiles(): GetFilesResponse
 
+    @JvmSuppressWildcards
     @Multipart
     @POST("files")
-    suspend fun uploadFile(@PartMap request: Map<String, RequestBody>): UploadFileResponse
+    suspend fun uploadFile(@Part file: MultipartBody.Part, @PartMap request: Map<String, RequestBody>): UploadFileResponse
 
     @DELETE("files/{file_id}")
     suspend fun deleteFile(@Path("file_id") fileId: String): DeleteFileResponse

@@ -2,6 +2,7 @@ package com.asadullah.api.request
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -29,9 +30,17 @@ data class UploadFileRequest(
     @Json(name = "purpose")
     val purpose: String
 ) {
+
+    fun fileAsFormDataPart() = with(File(file)) {
+        MultipartBody.Part.createFormData(
+            name = "file",
+            filename = this.name,
+            body = this.asRequestBody()
+        )
+    }
+
     fun toRequestBodyMap(): Map<String, RequestBody> {
         return mapOf(
-            "file" to File(file).asRequestBody(),
             "purpose" to purpose.toRequestBody()
         )
     }

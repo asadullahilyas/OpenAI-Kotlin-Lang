@@ -31,14 +31,14 @@ allprojects {
 ### Groovy
 ```` Groovy
 dependencies {
-    implementation 'com.github.asadullahilyas:OpenAI-Kotlin-Lang:1.0.0'
+    implementation 'com.github.asadullahilyas:OpenAI-Kotlin-Lang:1.0.1'
 }
 ````
 
 ### Kotlin
 ``` Kotlin
 dependencies {
-    implementation("com.github.asadullahilyas:OpenAI-Kotlin-Lang:1.0.0")
+    implementation("com.github.asadullahilyas:OpenAI-Kotlin-Lang:1.0.1")
 }
 ```
 
@@ -46,7 +46,11 @@ dependencies {
 ``` Kotlin
 fun main() {
     val openAISecretKey: String = readOpenAISecretKeyFromFile()
-    val openAI = OpenAI(secret = openAISecretKey)
+    val openAI = OpenAI(
+        configuration = Configuration(
+            secretKey = openAISecretKey
+        )
+    )
     CoroutineScope(Dispatchers.IO).launch {
         val response = openAI.getModels()
         val models = response.data
