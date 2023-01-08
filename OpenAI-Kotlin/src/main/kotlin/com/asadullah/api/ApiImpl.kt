@@ -15,93 +15,102 @@ class ApiImpl(private val configuration: Configuration) {
         createApiInterface(configuration)
     }
 
-    suspend fun getModels(): GetModelsResponse {
-        return apiInterface.getModels()
+    suspend fun getModels(): Response<GetModelsResponse> {
+        return Response(apiInterface.getModels())
     }
 
-    suspend fun getModelById(modelId: String): Model {
-        return apiInterface.getModelById(modelId)
+    suspend fun getModelById(modelId: String): Response<Model> {
+        return Response(apiInterface.getModelById(modelId))
     }
 
-    suspend fun createCompletion(request: CreateCompletionRequest): CreateCompletionResponse {
-        return apiInterface.createCompletion(request)
+    suspend fun createCompletion(request: CreateCompletionRequest): Response<CreateCompletionResponse> {
+        return Response(apiInterface.createCompletion(request))
     }
 
-    suspend fun createEdit(request: CreateEditRequest): CreateEditResponse {
-        return apiInterface.createEdit(request)
+    suspend fun createEdit(request: CreateEditRequest): Response<CreateEditResponse> {
+        return Response(apiInterface.createEdit(request))
     }
 
-    suspend fun createImage(request: CreateImageRequest): ImageResponse {
-        return apiInterface.createImage(request)
+    suspend fun createImage(request: CreateImageRequest): Response<ImageResponse> {
+        return Response(apiInterface.createImage(request))
     }
 
-    suspend fun editImage(request: EditImageRequest): ImageResponse {
-        return apiInterface.editImage(
-            imageFile = request.imageAsFormDataPart(),
-            maskFile = request.maskAsFormDataPart(),
-            request = request.toRequestBodyMap()
+    suspend fun editImage(request: EditImageRequest): Response<ImageResponse> {
+        return Response(
+            apiInterface.editImage(
+                imageFile = request.imageAsFormDataPart(),
+                maskFile = request.maskAsFormDataPart(),
+                request = request.toRequestBodyMap()
+            )
         )
     }
 
-    suspend fun createImageVariation(request: CreateImageVariationRequest): ImageResponse {
-        return apiInterface.createImageVariation(
-            imageFile = request.imageAsFormDataPart(),
-            request = request.toRequestBodyMap()
+    suspend fun createImageVariation(request: CreateImageVariationRequest): Response<ImageResponse> {
+        return Response(
+            apiInterface.createImageVariation(
+                imageFile = request.imageAsFormDataPart(),
+                request = request.toRequestBodyMap()
+            )
         )
     }
 
-    suspend fun createEmbeddings(request: CreateEmbeddingsRequest): CreateEmbeddingsResponse {
-        return apiInterface.createEmbeddings(request)
+    suspend fun createEmbeddings(request: CreateEmbeddingsRequest): Response<CreateEmbeddingsResponse> {
+        return Response(apiInterface.createEmbeddings(request))
     }
 
-    suspend fun getFiles(): GetFilesResponse {
-        return apiInterface.getFiles()
+    suspend fun getFiles(): Response<GetFilesResponse> {
+        return Response(apiInterface.getFiles())
     }
 
-    suspend fun uploadFile(request: UploadFileRequest): UploadFileResponse {
-        return apiInterface.uploadFile(
-            file = request.fileAsFormDataPart(),
-            request = request.toRequestBodyMap()
+    suspend fun uploadFile(request: UploadFileRequest): Response<UploadFileResponse> {
+        return Response(
+            apiInterface.uploadFile(
+                file = request.fileAsFormDataPart(),
+                request = request.toRequestBodyMap()
+            )
         )
     }
 
-    suspend fun deleteFile(fileId: String): DeleteFileResponse {
-        return apiInterface.deleteFile(fileId)
+    suspend fun deleteFile(fileId: String): Response<DeleteFileResponse> {
+        return Response(apiInterface.deleteFile(fileId))
     }
 
-    suspend fun getFileById(fileId: String): FileResponse {
-        return apiInterface.getFileById(fileId)
+    suspend fun getFileById(fileId: String): Response<FileResponse> {
+        return Response(apiInterface.getFileById(fileId))
     }
 
-    suspend fun getFileContentById(fileId: String): FileResponse {
-        return apiInterface.getFileContentById(fileId)
+    suspend fun getFileContentById(fileId: String): Response<FileResponse> {
+        return Response(apiInterface.getFileContentById(fileId))
     }
 
-    suspend fun createFineTune(request: CreateFineTuneRequest): FineTune {
-        return apiInterface.createFineTune(request)
+    suspend fun createFineTune(request: CreateFineTuneRequest): Response<FineTune> {
+        return Response(apiInterface.createFineTune(request))
     }
 
-    suspend fun getFineTunes(): GetFineTunesResponse {
-        return apiInterface.getFineTunes()
+    suspend fun getFineTunes(): Response<GetFineTunesResponse> {
+        return Response(apiInterface.getFineTunes())
     }
 
-    suspend fun getFineTuneById(fineTuneId: String): FineTune {
-        return apiInterface.getFineTuneById(fineTuneId)
+    suspend fun getFineTuneById(fineTuneId: String): Response<FineTune> {
+        return Response(apiInterface.getFineTuneById(fineTuneId))
     }
 
-    suspend fun cancelFineTuneById(fineTuneId: String): FineTune {
-        return apiInterface.cancelFineTuneById(fineTuneId)
+    suspend fun cancelFineTuneById(fineTuneId: String): Response<FineTune> {
+        return Response(apiInterface.cancelFineTuneById(fineTuneId))
     }
 
-    suspend fun getEventsByFineTuneId(fineTuneId: String, shouldStream: Boolean): GetEventsByFineTuneIdResponse {
-        return apiInterface.getEventsByFineTuneId(fineTuneId, shouldStream)
+    suspend fun getEventsByFineTuneId(
+        fineTuneId: String,
+        shouldStream: Boolean
+    ): Response<GetEventsByFineTuneIdResponse> {
+        return Response(apiInterface.getEventsByFineTuneId(fineTuneId, shouldStream))
     }
 
-    suspend fun deleteFineTuneModel(modelId: String): DeleteFineTuneModelResponse {
-        return apiInterface.deleteFineTuneModel(modelId)
+    suspend fun deleteFineTuneModel(modelId: String): Response<DeleteFineTuneModelResponse> {
+        return Response(apiInterface.deleteFineTuneModel(modelId))
     }
 
-    suspend fun createModeration(request: CreateModerationRequest): CreateModerationResponse {
-        return apiInterface.createModeration(request)
+    suspend fun createModeration(request: CreateModerationRequest): Response<CreateModerationResponse> {
+        return Response(apiInterface.createModeration(request))
     }
 }

@@ -15,7 +15,7 @@ data class ErrorResponse(
         @Json(name = "message")
         val message: String,
         @Json(name = "param")
-        val `param`: Any,
+        val `param`: Any?,
         @Json(name = "type")
         val type: String
     )

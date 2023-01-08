@@ -5,6 +5,7 @@
 .DS_Store
 /build
 /captures
+OpenAI-Kotlin/build
 .externalNativeBuild
 .cxx
 local.properties

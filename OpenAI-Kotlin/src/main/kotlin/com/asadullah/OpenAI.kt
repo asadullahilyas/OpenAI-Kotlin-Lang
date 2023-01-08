@@ -16,7 +16,7 @@ class OpenAI(private val configuration: Configuration) {
      * Lists the currently available models, and provides basic information
      * about each one such as the owner and availability.
      */
-    suspend fun getModels(): GetModelsResponse {
+    suspend fun getModels(): Response<GetModelsResponse> {
         return api.getModels()
     }
 
@@ -24,28 +24,28 @@ class OpenAI(private val configuration: Configuration) {
      * Retrieves a model instance, providing basic information about the
      * model such as the owner and permissioning.
      */
-    suspend fun getModelById(modelId: String): Model {
+    suspend fun getModelById(modelId: String): Response<Model> {
         return api.getModelById(modelId)
     }
 
     /**
      * Creates a completion for the provided prompt and parameters.
      */
-    suspend fun createCompletion(request: CreateCompletionRequest): CreateCompletionResponse {
+    suspend fun createCompletion(request: CreateCompletionRequest): Response<CreateCompletionResponse> {
         return api.createCompletion(request)
     }
 
     /**
      * Creates a new edit for the provided input, instruction, and parameters.
      */
-    suspend fun createEdit(request: CreateEditRequest): CreateEditResponse {
+    suspend fun createEdit(request: CreateEditRequest): Response<CreateEditResponse> {
         return api.createEdit(request)
     }
 
     /**
      * Creates an image given a prompt.
      */
-    suspend fun createImage(request: CreateImageRequest): ImageResponse {
+    suspend fun createImage(request: CreateImageRequest): Response<ImageResponse> {
         return api.createImage(request)
     }
 
@@ -53,28 +53,28 @@ class OpenAI(private val configuration: Configuration) {
      * Creates an edited or extended image given an original image and
      * a prompt.
      */
-    suspend fun editImage(request: EditImageRequest): ImageResponse {
+    suspend fun editImage(request: EditImageRequest): Response<ImageResponse> {
         return api.editImage(request)
     }
 
     /**
      * Creates a variation of a given image.
      */
-    suspend fun createImageVariation(request: CreateImageVariationRequest): ImageResponse {
+    suspend fun createImageVariation(request: CreateImageVariationRequest): Response<ImageResponse> {
         return api.createImageVariation(request)
     }
 
     /**
      * Creates an embedding vector representing the input text.
      */
-    suspend fun createEmbeddings(request: CreateEmbeddingsRequest): CreateEmbeddingsResponse {
+    suspend fun createEmbeddings(request: CreateEmbeddingsRequest): Response<CreateEmbeddingsResponse> {
         return api.createEmbeddings(request)
     }
 
     /**
      * Returns a list of files that belong to the user's organization.
      */
-    suspend fun getFiles(): GetFilesResponse {
+    suspend fun getFiles(): Response<GetFilesResponse> {
         return api.getFiles()
     }
 
@@ -84,28 +84,28 @@ class OpenAI(private val configuration: Configuration) {
      * by one organization can be up to 1 GB. Please contact OpenAI if you
      * need to increase the storage limit.
      */
-    suspend fun uploadFile(request: UploadFileRequest): UploadFileResponse {
+    suspend fun uploadFile(request: UploadFileRequest): Response<UploadFileResponse> {
         return api.uploadFile(request)
     }
 
     /**
      * Delete a file.
      */
-    suspend fun deleteFile(fileId: String): DeleteFileResponse {
+    suspend fun deleteFile(fileId: String): Response<DeleteFileResponse> {
         return api.deleteFile(fileId)
     }
 
     /**
      * Returns information about a specific file.
      */
-    suspend fun getFileById(fileId: String): FileResponse {
+    suspend fun getFileById(fileId: String): Response<FileResponse> {
         return api.getFileById(fileId)
     }
 
     /**
      * Returns the contents of the specified file
      */
-    suspend fun getFileContentById(fileId: String): FileResponse {
+    suspend fun getFileContentById(fileId: String): Response<FileResponse> {
         return api.getFileContentById(fileId)
     }
 
@@ -115,28 +115,28 @@ class OpenAI(private val configuration: Configuration) {
      * Response includes details of the enqueued job including job status
      * and the name of the fine-tuned models once complete.
      */
-    suspend fun createFineTune(request: CreateFineTuneRequest): FineTune {
+    suspend fun createFineTune(request: CreateFineTuneRequest): Response<FineTune> {
         return api.createFineTune(request)
     }
 
     /**
      * List your organization's fine-tuning jobs.
      */
-    suspend fun getFineTunes(): GetFineTunesResponse {
+    suspend fun getFineTunes(): Response<GetFineTunesResponse> {
         return api.getFineTunes()
     }
 
     /**
      * Gets info about the fine-tune job.
      */
-    suspend fun getFineTuneById(fineTuneId: String): FineTune {
+    suspend fun getFineTuneById(fineTuneId: String): Response<FineTune> {
         return api.getFineTuneById(fineTuneId)
     }
 
     /**
      * Immediately cancel a fine-tune job.
      */
-    suspend fun cancelFineTuneById(fineTuneId: String): FineTune {
+    suspend fun cancelFineTuneById(fineTuneId: String): Response<FineTune> {
         return api.cancelFineTuneById(fineTuneId)
     }
 
@@ -150,7 +150,7 @@ class OpenAI(private val configuration: Configuration) {
      *
      * If set to false, only events generated so far will be returned.
      */
-    suspend fun getEventsByFineTuneId(fineTuneId: String, shouldStream: Boolean = false): GetEventsByFineTuneIdResponse {
+    suspend fun getEventsByFineTuneId(fineTuneId: String, shouldStream: Boolean = false): Response<GetEventsByFineTuneIdResponse> {
         return api.getEventsByFineTuneId(fineTuneId, shouldStream)
     }
 
@@ -158,14 +158,14 @@ class OpenAI(private val configuration: Configuration) {
      * Delete a fine-tuned model. You must have the Owner role in your
      * organization.
      */
-    suspend fun deleteFineTuneModel(modelId: String): DeleteFineTuneModelResponse {
+    suspend fun deleteFineTuneModel(modelId: String): Response<DeleteFineTuneModelResponse> {
         return api.deleteFineTuneModel(modelId)
     }
 
     /**
      * Classifies if text violates OpenAI's Content Policy
      */
-    suspend fun createModeration(request: CreateModerationRequest): CreateModerationResponse {
+    suspend fun createModeration(request: CreateModerationRequest): Response<CreateModerationResponse> {
         return api.createModeration(request)
     }
 }
