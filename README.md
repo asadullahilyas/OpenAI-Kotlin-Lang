@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/asadullahilyas/openai-kotlin-lang.svg)](https://jitpack.io/#asadullahilyas/openai-kotlin-lang)
+
 # OpenAI - Kotlin
 
 A community maintained open source library to access APIs of OpenAI.
